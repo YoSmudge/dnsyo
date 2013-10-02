@@ -1,0 +1,638 @@
+#This is a list of all the open DNS resolvers dnsyo uses
+#Feel free to add more, but please include the reverse DNS
+#country code and providers netblock name
+  - 
+    ip: "8.8.8.8"
+    provider: "GOOGLE - Google Inc."
+    reverse: "google-public-dns-a.google.com"
+    country: "US"
+  - 
+    ip: "8.8.4.4"
+    provider: "GOOGLE - Google Inc."
+    reverse: "google-public-dns-b.google.com"
+    country: "US"
+  - 
+    ip: "208.67.222.222"
+    provider: "OPENDNS - OpenDNS, LLC"
+    reverse: "resolver1.opendns.com"
+    country: "US"
+  - 
+    ip: "208.67.220.220"
+    provider: "OPENDNS - OpenDNS, LLC"
+    reverse: "resolver2.opendns.com"
+    country: "US"
+  - 
+    ip: "156.154.70.1"
+    provider: "ULTRADNS - NeuStar, Inc."
+    reverse: "rdns1.ultradns.net"
+    country: "US"
+  - 
+    ip: "156.154.71.1"
+    provider: "ULTRADNS - NeuStar, Inc."
+    reverse: "rdns2.ultradns.net"
+    country: "US"
+  - 
+    ip: "198.153.192.1"
+    provider: "DYNDNS - Dynamic Network Services, Inc."
+    reverse: "198.153.192.1"
+    country: "US"
+  - 
+    ip: "198.153.194.1"
+    provider: "DYNDNS - Dynamic Network Services, Inc."
+    reverse: "198.153.194.1"
+    country: "US"
+  - 
+    ip: "4.2.2.1"
+    provider: "LEVEL3 Level 3 Communications"
+    reverse: "a.resolvers.level3.net"
+    country: "US"
+  - 
+    ip: "4.2.2.2"
+    provider: "LEVEL3 Level 3 Communications"
+    reverse: "b.resolvers.level3.net"
+    country: "US"
+  - 
+    ip: "4.2.2.3"
+    provider: "LEVEL3 Level 3 Communications"
+    reverse: "c.resolvers.level3.net"
+    country: "US"
+  - 
+    ip: "4.2.2.4"
+    provider: "LEVEL3 Level 3 Communications"
+    reverse: "d.resolvers.level3.net"
+    country: "US"
+  - 
+    ip: "4.2.2.5"
+    provider: "LEVEL3 Level 3 Communications"
+    reverse: "e.resolvers.level3.net"
+    country: "US"
+  - 
+    ip: "4.2.2.6"
+    provider: "LEVEL3 Level 3 Communications"
+    reverse: "resolver8.level3.net"
+    country: "US"
+  - 
+    ip: "203.24.100.125"
+    provider: "EFTEL-AS-AP EFTel Pty Ltd"
+    reverse: "proxy.eftel.com"
+    country: "AU"
+  - 
+    ip: "203.123.94.40"
+    provider: "EFTEL-AS-AP Eftel Limited."
+    reverse: "eth1-5.ns-container.mel.dft.com.au"
+    country: "AU"
+  - 
+    ip: "203.123.69.15"
+    provider: "EFTEL-AS-AP Eftel Limited."
+    reverse: "nscache-corp.mel.eftel.com"
+    country: "AU"
+  - 
+    ip: "202.76.136.40"
+    provider: "EFTEL-AS-AP Eftel Limited."
+    reverse: "nscache.bne.dft.com.au"
+    country: "AU"
+  - 
+    ip: "202.76.170.40"
+    provider: "EFTEL-AS-AP Eftel Limited."
+    reverse: "nscache-corp.syd.eftel.com"
+    country: "AU"
+  - 
+    ip: "192.189.54.33"
+    provider: "AAPT AAPT Limited"
+    reverse: "warrane.connect.com.au"
+    country: "AU"
+  - 
+    ip: "203.8.183.1"
+    provider: "AAPT AAPT Limited"
+    reverse: "ns1.aapt.com.au"
+    country: "AU"
+  - 
+    ip: "192.189.54.17"
+    provider: "AAPT AAPT Limited"
+    reverse: "yarrina.connect.com.au"
+    country: "AU"
+  - 
+    ip: "122.49.191.252"
+    provider: "ADAM-AS-AP Adam Internet Pty Ltd"
+    reverse: "dnsac1.adnap.net.au"
+    country: "AU"
+  - 
+    ip: "203.161.127.1"
+    provider: "AMNET-AU-AP Amnet IT Services Pty Ltd"
+    reverse: "dnscache1.wa.amnet.net.au"
+    country: "AU"
+  - 
+    ip: "203.23.236.66"
+    provider: "SPIN-INTERNET-AP Spin Internet Service"
+    reverse: "comcen.comcen.com.au"
+    country: "AU"
+  - 
+    ip: "203.220.32.121"
+    provider: "COMINDICO-AP SOUL Converged Communications Australia"
+    reverse: "dns1.dodo.com.au"
+    country: "AU"
+  - 
+    ip: "203.220.32.122"
+    provider: "COMINDICO-AP SOUL Converged Communications Australia"
+    reverse: "dns2.dodo.com.au"
+    country: "AU"
+  - 
+    ip: "220.233.0.4"
+    provider: "EXETEL-AS-AP Exetel Pty Ltd"
+    reverse: "kolanut2-dns.exetel.com.au"
+    country: "AU"
+  - 
+    ip: "220.233.0.3"
+    provider: "EXETEL-AS-AP Exetel Pty Ltd"
+    reverse: "kolanut-dns.exetel.com.au"
+    country: "AU"
+  - 
+    ip: "203.0.178.191"
+    provider: "ASN-IINET iiNet Limited"
+    reverse: "dns.iinet.net.au"
+    country: "AU"
+  - 
+    ip: "192.231.203.132"
+    provider: "INTERNODE-AS Internode Pty Ltd"
+    reverse: "resolv.internode.on.net"
+    country: "AU"
+  - 
+    ip: "192.231.203.3"
+    provider: "INTERNODE-AS Internode Pty Ltd"
+    reverse: "resolv2.internode.on.net"
+    country: "AU"
+  - 
+    ip: "203.134.64.66"
+    provider: "INTERNETPRIMUS-AS-AP Primus Telecommunications"
+    reverse: "nc1.syd.iprimus.net.au"
+    country: "AU"
+  - 
+    ip: "203.134.65.66"
+    provider: "INTERNETPRIMUS-AS-AP Primus Telecommunications"
+    reverse: "nc2.syd.iprimus.net.au"
+    country: "AU"
+  - 
+    ip: "203.134.24.70"
+    provider: "INTERNETPRIMUS-AS-AP Primus Telecommunications"
+    reverse: "nc1.mel.iprimus.net.au"
+    country: "AU"
+  - 
+    ip: "203.134.26.70"
+    provider: "INTERNETPRIMUS-AS-AP Primus Telecommunications"
+    reverse: "nc2.mel.iprimus.net.au"
+    country: "AU"
+  - 
+    ip: "203.134.12.90"
+    provider: "INTERNETPRIMUS-AS-AP Primus Telecommunications"
+    reverse: "nc1.brs.iprimus.net.au"
+    country: "AU"
+  - 
+    ip: "203.134.102.90"
+    provider: "INTERNETPRIMUS-AS-AP Primus Telecommunications"
+    reverse: "nc2.brs.iprimus.net.au"
+    country: "AU"
+  - 
+    ip: "203.134.17.90"
+    provider: "INTERNETPRIMUS-AS-AP Primus Telecommunications"
+    reverse: "nc1.pth.iprimus.net.au"
+    country: "AU"
+  - 
+    ip: "210.15.254.240"
+    provider: "ASN-IINET iiNet Limited"
+    reverse: "dns1-1-virtual.netspace.net.au"
+    country: "AU"
+  - 
+    ip: "211.29.132.12"
+    provider: "MPX-AS Microplex PTY LTD"
+    reverse: "dns.mas.optusnet.com.au"
+    country: "AU"
+  - 
+    ip: "202.154.123.97"
+    provider: "SWIFTEL1-AP People Telecom Pty. Ltd."
+    reverse: "dnscache.syd.people.net.au"
+    country: "AU"
+  - 
+    ip: "218.214.227.3"
+    provider: "SWIFTEL1-AP People Telecom Pty. Ltd."
+    reverse: "3.227.214.218.sta.commander.net.au"
+    country: "AU"
+  - 
+    ip: "202.154.92.5"
+    provider: "SWIFTEL1-AP People Telecom Pty. Ltd."
+    reverse: "5.92.154.202.sta.commander.net.au"
+    country: "AU"
+  - 
+    ip: "218.214.228.97"
+    provider: "SWIFTEL1-AP People Telecom Pty. Ltd."
+    reverse: "97.228.214.218.sta.commander.net.au"
+    country: "AU"
+  - 
+    ip: "218.214.17.1"
+    provider: "SWIFTEL1-AP People Telecom Pty. Ltd."
+    reverse: "1.17.214.218.sta.commander.net.au"
+    country: "AU"
+  - 
+    ip: "61.9.194.49"
+    provider: "ASN-TELSTRA Telstra Pty Ltd"
+    reverse: "dns-cust.cht.bigpond.net.au"
+    country: "AU"
+  - 
+    ip: "61.9.195.193"
+    provider: "ASN-TELSTRA Telstra Pty Ltd"
+    reverse: "dns-cust.ken.bigpond.net.au"
+    country: "AU"
+  - 
+    ip: "61.9.133.193"
+    provider: "ASN-TELSTRA Telstra Pty Ltd"
+    reverse: "dns-cust.lon.bigpond.net.au"
+    country: "AU"
+  - 
+    ip: "61.9.134.49"
+    provider: "ASN-TELSTRA Telstra Pty Ltd"
+    reverse: "dns-cust.win.bigpond.net.au"
+    country: "AU"
+  - 
+    ip: "61.9.211.33"
+    provider: "ASN-TELSTRA Telstra Pty Ltd"
+    reverse: "dns-cust.cha.bigpond.net.au"
+    country: "AU"
+  - 
+    ip: "61.9.211.1"
+    provider: "ASN-TELSTRA Telstra Pty Ltd"
+    reverse: "dns-cust.woo.bigpond.net.au"
+    country: "AU"
+  - 
+    ip: "61.9.188.33"
+    provider: "ASN-TELSTRA Telstra Pty Ltd"
+    reverse: "dns-cust.dav.bigpond.net.au"
+    country: "AU"
+  - 
+    ip: "61.9.207.1"
+    provider: "ASN-TELSTRA Telstra Pty Ltd"
+    reverse: "dns-cust.dea.bigpond.net.au"
+    country: "AU"
+  - 
+    ip: "61.9.226.33"
+    provider: "ASN-TELSTRA Telstra Pty Ltd"
+    reverse: "dns-cust.fli.bigpond.net.au"
+    country: "AU"
+  - 
+    ip: "61.9.242.33"
+    provider: "ASN-TELSTRA Telstra Pty Ltd"
+    reverse: "dns-cust.wel.bigpond.net.au"
+    country: "AU"
+  - 
+    ip: "203.12.160.35"
+    provider: "TPG-INTERNET-AP TPG Telecom Limited"
+    reverse: "dns1.tpgi.com.au"
+    country: "AU"
+  - 
+    ip: "203.12.160.36"
+    provider: "TPG-INTERNET-AP TPG Telecom Limited"
+    reverse: "dns2.tpgi.com.au"
+    country: "AU"
+  - 
+    ip: "217.169.20.20"
+    provider: "AS20712 Andrews and Arnold Ltd"
+    reverse: "dns1.aa.net.uk"
+    country: "GB"
+  - 
+    ip: "217.169.20.21"
+    provider: "AS20712 Andrews and Arnold Ltd"
+    reverse: "dns2.aa.net.uk"
+    country: "GB"
+  - 
+    ip: "64.12.51.132"
+    provider: "AOL-ATDN - AOL Transit Data Network"
+    reverse: "dns-01.ns.aol.com"
+    country: "US"
+  - 
+    ip: "149.174.221.8"
+    provider: "AOL-ATDN - AOL Transit Data Network"
+    reverse: "149.174.221.8"
+    country: "US"
+  - 
+    ip: "205.188.157.232"
+    provider: "AOL-ATDN - AOL Transit Data Network"
+    reverse: "dns-02.ns.aol.com"
+    country: "US"
+  - 
+    ip: "87.194.0.51"
+    provider: "BEUNLIMITED Telefonica UK Limited"
+    reverse: "cache0.betherenow.co.uk"
+    country: "GB"
+  - 
+    ip: "87.194.0.52"
+    provider: "BEUNLIMITED Telefonica UK Limited"
+    reverse: "cache1.betherenow.co.uk"
+    country: "GB"
+  - 
+    ip: "87.194.0.66"
+    provider: "BEUNLIMITED Telefonica UK Limited"
+    reverse: "ns1.betherenow.co.uk"
+    country: "GB"
+  - 
+    ip: "62.6.40.178"
+    provider: "BT-UK-AS BTnet UK Regional network"
+    reverse: "indnsc71.ukcore.bt.net"
+    country: "GB"
+  - 
+    ip: "62.6.40.162"
+    provider: "BT-UK-AS BTnet UK Regional network"
+    reverse: "indnsc70.ukcore.bt.net"
+    country: "GB"
+  - 
+    ip: "194.72.9.38"
+    provider: "BT-UK-AS BTnet UK Regional network"
+    reverse: "ns8.bt.net"
+    country: "GB"
+  - 
+    ip: "194.72.9.34"
+    provider: "BT-UK-AS BTnet UK Regional network"
+    reverse: "bcn.customer.bt.net"
+    country: "GB"
+  - 
+    ip: "194.72.0.98"
+    provider: "BT-UK-AS BTnet UK Regional network"
+    reverse: "indnsc60.bt.net"
+    country: "GB"
+  - 
+    ip: "194.72.0.114"
+    provider: "BT-UK-AS BTnet UK Regional network"
+    reverse: "indnsc61.ukcore.bt.net"
+    country: "GB"
+  - 
+    ip: "194.74.65.68"
+    provider: "BT-UK-AS BTnet UK Regional network"
+    reverse: "indnsc40.bt.net"
+    country: "GB"
+  - 
+    ip: "212.158.248.5"
+    provider: "ASN-CWACCESS Cable and Wireless Access Ltd"
+    reverse: "mcr-dns.dslgb.com"
+    country: "GB"
+  - 
+    ip: "212.158.248.6"
+    provider: "ASN-CWACCESS Cable and Wireless Access Ltd"
+    reverse: "mcr-dns.dslgb.com"
+    country: "GB"
+  - 
+    ip: "83.146.21.5"
+    provider: "ASN-CWACCESS Cable and Wireless Access Ltd"
+    reverse: "cht-dns.dslgb.com"
+    country: "GB"
+  - 
+    ip: "80.76.204.35"
+    provider: "BYTEL-AS Bytel Ltd"
+    reverse: "ns0.bytel.net.uk"
+    country: "GB"
+  - 
+    ip: "195.8.69.7"
+    provider: "CLARANET-AS ClaraNET LTD"
+    reverse: "resolver1.uk.clara.net"
+    country: "GB"
+  - 
+    ip: "80.68.34.6"
+    provider: "DATANET-AS Datanet.co.uk Ltd"
+    reverse: "resolver-1.noc.data.net.uk"
+    country: "GB"
+  - 
+    ip: "77.241.177.2"
+    provider: "DATANET-AS Datanet.co.uk Ltd"
+    reverse: "ns3.data.net.uk"
+    country: "GB"
+  - 
+    ip: "158.152.1.58"
+    provider: "DEMON-INTERNET Now maintained by Cable & Wireless Worldwide"
+    reverse: "cache-1.ns.demon.net"
+    country: "EU"
+  - 
+    ip: "212.104.130.9"
+    provider: "ECLIPSE KCOM GROUP PLC"
+    reverse: "resolver1.th.eclipse.net.uk"
+    country: "GB"
+  - 
+    ip: "195.74.102.146"
+    provider: "ENTANET ENTANET International Limited"
+    reverse: "dns-cache1.enta.net"
+    country: "GB"
+  - 
+    ip: "82.219.4.24"
+    provider: "EXA-NETWORKS Exa Networks Limited"
+    reverse: "cache0.exa-networks.co.uk"
+    country: "GB"
+  - 
+    ip: "78.143.192.10"
+    provider: "MAILBOX Mailbox Networks"
+    reverse: "dnscache1.fast.co.uk"
+    country: "GB"
+  - 
+    ip: "194.106.56.6"
+    provider: "TISCALI-UK Tiscali UK"
+    reverse: "server0009.freedom2surf.net"
+    country: "GB"
+  - 
+    ip: "212.69.36.3"
+    provider: "IDNET Infinity Developments Limited"
+    reverse: "resolver0.idnet.net"
+    country: "GB"
+  - 
+    ip: "212.69.36.2"
+    provider: "IDNET Infinity Developments Limited"
+    reverse: "ns0.idnet.net"
+    country: "GB"
+  - 
+    ip: "212.50.160.100"
+    provider: "KINGSTON-UK-AS KCOM Group Public Limited Company"
+    reverse: "cachedns1.core.kcom.com"
+    country: "GB"
+  - 
+    ip: "80.189.94.2"
+    provider: "PLUSNET PlusNet PLC"
+    reverse: "80.189.94.2"
+    country: "GB"
+  - 
+    ip: "217.146.97.10"
+    provider: "MERULA Merula Limited"
+    reverse: "nimue.merula.net"
+    country: "GB"
+  - 
+    ip: "213.162.97.65"
+    provider: "PLUSNET PlusNet PLC"
+    reverse: "resolver0.metronet.co.uk"
+    country: "GB"
+  - 
+    ip: "195.184.228.6"
+    provider: "KCOM-SPN KCOM Group PLC"
+    reverse: "nscache1.mistral.co.uk"
+    country: "GB"
+  - 
+    ip: "195.7.224.57"
+    provider: "ISIONUK Namesco Limited"
+    reverse: "res01.ision.net.uk"
+    country: "GB"
+  - 
+    ip: "212.87.64.10"
+    provider: "TIMICO Timico Ltd Autonomous System"
+    reverse: "cache2-anyc.th.newnet.co.uk"
+    country: "GB"
+  - 
+    ip: "213.208.106.212"
+    provider: "TISCALI-UK Tiscali UK"
+    reverse: "lon1-dns1.nildram.net"
+    country: "GB"
+  - 
+    ip: "212.67.96.129"
+    provider: "ONETEL-AS TalkTalk Communications Limited"
+    reverse: "rdns-1.as13285.net"
+    country: "GB"
+  - 
+    ip: "194.176.65.5"
+    provider: "ONYX Onyx Internet"
+    reverse: "nab.onyx.net"
+    country: "EU"
+  - 
+    ip: "213.190.161.254"
+    provider: "ENTANET ENTANET International Limited"
+    reverse: "dns1.oosha.co.uk"
+    country: "GB"
+  - 
+    ip: "213.190.161.250"
+    provider: "ENTANET ENTANET International Limited"
+    reverse: "dns2.oosha.co.uk"
+    country: "GB"
+  - 
+    ip: "195.92.195.94"
+    provider: "ENERGIS-AS Energis UK"
+    reverse: "resolver1.svr.pol.co.uk"
+    country: "GB"
+  - 
+    ip: "158.43.240.4"
+    provider: "AS702 Verizon Business EMEA - Commercial IP service provider in Europe"
+    reverse: "cache0004.ns.eu.uu.net"
+    country: "US"
+  - 
+    ip: "212.74.112.66"
+    provider: "TISCALI-UK Tiscali UK"
+    reverse: "mk-cache-1.ns.uk.tiscali.com"
+    country: "GB"
+  - 
+    ip: "212.159.13.49"
+    provider: "PLUSNET PlusNet PLC"
+    reverse: "cdns01.plus.net"
+    country: "GB"
+  - 
+    ip: "212.159.13.50"
+    provider: "PLUSNET PlusNet PLC"
+    reverse: "cdns02.plus.net"
+    country: "GB"
+  - 
+    ip: "212.159.6.9"
+    provider: "PLUSNET PlusNet PLC"
+    reverse: "cdns01.plus.net"
+    country: "GB"
+  - 
+    ip: "195.60.0.1"
+    provider: "POWERNETUK Power Internet Ltd."
+    reverse: "dnsrec0.power.net.uk"
+    country: "GB"
+  - 
+    ip: "198.83.19.241"
+    provider: "SBIS-AS AS for SBIS-AS"
+    reverse: "ns3.prodigy.net"
+    country: "US"
+  - 
+    ip: "198.83.19.244"
+    provider: "SBIS-AS AS for SBIS-AS"
+    reverse: "ns4.prodigy.net"
+    country: "US"
+  - 
+    ip: "207.115.59.241"
+    provider: "SBIS-AS AS for SBIS-AS"
+    reverse: "nothing.attdns.com"
+    country: "US"
+  - 
+    ip: "195.2.130.209"
+    provider: "SAQ-UK-AS SEMTEC Limited"
+    reverse: "ns01.saqnet.co.uk"
+    country: "GB"
+  - 
+    ip: "217.16.223.30"
+    provider: "ASN-SCOTNET Scotnet"
+    reverse: "dns0.scotnet.net"
+    country: "GB"
+  - 
+    ip: "87.86.189.16"
+    provider: "EASYNET Easynet Global Services"
+    reverse: "ip-87-86-189-16.easynet.co.uk"
+    country: "EU"
+  - 
+    ip: "87.86.189.17"
+    provider: "EASYNET Easynet Global Services"
+    reverse: "ip-87-86-189-17.easynet.co.uk"
+    country: "EU"
+  - 
+    ip: "212.84.173.66"
+    provider: "IOMART-AS Iomart"
+    reverse: "penguin.dnsmaster.net"
+    country: "GB"
+  - 
+    ip: "213.40.66.126"
+    provider: "Netline UK Ltd"
+    reverse: "213.40.66.126"
+    country: "GB"
+  - 
+    ip: "62.24.134.1"
+    provider: "OPALTELECOM-AS TalkTalk Communications Limited"
+    reverse: "host-62-24-134-1.as13285.net"
+    country: "GB"
+  - 
+    ip: "194.168.4.100"
+    provider: "NTL Virgin Media Limited"
+    reverse: "cache1.service.virginmedia.net"
+    country: "GB"
+  - 
+    ip: "217.149.108.10"
+    provider: "ASN-LINIX LINIX Ltd"
+    reverse: "217-149-108-10.as25582.net"
+    country: "GB"
+  - 
+    ip: "195.54.225.10"
+    provider: "TIMICO Timico Ltd Autonomous System"
+    reverse: "cns2.as8607.net"
+    country: "GB"
+  - 
+    ip: "212.74.112.67"
+    provider: "TISCALI-UK Tiscali UK"
+    reverse: "mk-cache-2.ns.uk.tiscali.com"
+    country: "GB"
+  - 
+    ip: "80.255.252.50"
+    provider: "SIGNET-AS Signet B.V."
+    reverse: "static.ip-80-255-252-50.signet.nl"
+    country: "NL"
+  - 
+    ip: "77.95.114.100"
+    provider: "IPSwitch Networks Ltd"
+    reverse: "77.95.114.100"
+    country: "GB"
+  - 
+    ip: "212.135.1.36"
+    provider: "EASYNET Easynet Global Services"
+    reverse: "lb-rns.bllon.uk.easynet.net"
+    country: "EU"
+  - 
+    ip: "62.24.128.17"
+    provider: "OPALTELECOM-AS TalkTalk Communications Limited"
+    reverse: "gdns-1.opaltelecom.net"
+    country: "GB"
+  - 
+    ip: "194.46.192.141"
+    provider: "UTVI-ASN The Internet Business Ltd"
+    reverse: "cw-dnsrad-01.utvinternet.net"
+    country: "IE"
+  - 
+    ip: "62.24.228.9"
+    provider: "VISPA-ASN Vispa Internet Limited"
+    reverse: "ns0.vispa.net.uk"
+    country: "GB"
