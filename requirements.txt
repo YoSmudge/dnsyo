@@ -1,3 +1,4 @@
+-e git://github.com/samarudge/dnsyo.git#egg=dnsyo
 PyYAML==3.10
 dnspython==1.11.1
 requests==2.0.0
