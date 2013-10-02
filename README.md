@@ -40,7 +40,7 @@ Here's what it does
 
 DNSYO requires Python 2.6 or later. The easiest way to install is by running
 
-    pip install -r https://raw.github.com/samarudge/dnsyo/master/requirements.txt
+    pip install -r https://raw.github.com/samarudge/dnsyo/master/requirements.txt --upgrade
 
 You should probably install it within a virtualenv.
 
@@ -67,6 +67,12 @@ To change output mode, pass ether `--extended` or `--simple` to DNSYO.
 ###Resolver list
 
 DNSYO periodically updates it's internal resolver database from this repo. The first time you run it, and once every 2 weeks, it will try to download the `resolver-list.yml` file and store it to your systems `/tmp` directory. If you know of any more open DNS resolvers feel free to add them to the list.
+
+###Record types
+
+Just like dig, you can pass the record type as the second positional argument to DNSYO, so to get Google's MX records just do
+
+    dnsyo google.com MX
 
 ##Licence
 
