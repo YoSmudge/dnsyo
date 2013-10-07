@@ -9,7 +9,7 @@ def run():
     """
     
     options = [
-        ['resolvlist:l','store','Location of the yaml resolvers list', 'https://raw.github.com/samarudge/dnsyo/master/resolver-list.yml'],
+        ['resolvlist:l','store','Location of the yaml resolvers list to download (http/https)', 'https://raw.github.com/samarudge/dnsyo/master/resolver-list.yml'],
         ['verbose:v','store_true','Extended debug info'],
         ['simple:s','store_true','Simple output mode (good for UNIX parsing)'],
         ['extended:x','store_true','Extended output mode including server addresses']
