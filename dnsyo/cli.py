@@ -12,7 +12,9 @@ def run():
         ['resolvlist:l','store','Location of the yaml resolvers list to download (http/https)', 'https://raw.github.com/samarudge/dnsyo/master/resolver-list.yml'],
         ['verbose:v','store_true','Extended debug info'],
         ['simple:s','store_true','Simple output mode (good for UNIX parsing)'],
-        ['extended:x','store_true','Extended output mode including server addresses']
+        ['extended:x','store_true','Extended output mode including server addresses'],
+        ['threads:t','store','Number of worker threads to use', 100],
+        ['servers:q','store','Maximum number of servers to query (or ALL)', 500]
     ]
     
     p = ArgumentParser(
@@ -24,6 +26,7 @@ def run():
     #Load the options
     for opt in options:
         name,flag = opt[0].split(':')
+        
         default = opt[3] if len(opt) > 3 else None
         
         p.add_argument(
@@ -62,13 +65,12 @@ def run():
         lookup = dnsyo.lookup(
             domain=opts.domain,
             recordType=opts.type,
-            listLocation=opts.resolvlist
+            listLocation=opts.resolvlist,
+            maxWorkers=opts.threads,
+            maxServers=opts.servers
         )
     except AssertionError as e:
         p.error(e)
-        sys.exit(3)
-    except ValueError:
-        p.error("Number of servers to query should be int or 'ALL'")
         sys.exit(3)
     
     #Update the list, if needed

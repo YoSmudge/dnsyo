@@ -4,7 +4,7 @@ import yaml
 import time
 import logging
 import threading
-from random import randint
+import random
 import sys
 from datetime import datetime
 import dns.resolver
@@ -31,8 +31,6 @@ class lookup(object):
     #Update the resolver list every 14 days
     updateListEvery = 60*60*24*14
     
-    maxWorkers = 50
-    
     serverList = []
     
     results = []
@@ -44,7 +42,8 @@ class lookup(object):
         listLocation,
         listLocal='/tmp/dnsyo-resovers-list-{0}.yaml'.format(os.getuid()),
         expected=None,
-        maxServers='ALL'):
+        maxServers='ALL',
+        maxWorkers=50):
         """
         Get everything setup and ready to go
         
@@ -77,11 +76,26 @@ class lookup(object):
         assert os.path.isdir(os.path.dirname(listLocal)), "{0} is not a directory!".format(os.path.dirname(listLocal))
         assert os.access(os.path.dirname(listLocal), os.W_OK), "{0} is not writable!".format(os.path.dirname(listLocal))
         
+        #Check maxWorkers is valid
+        try:
+            maxWorkers = int(maxWorkers)
+        except ValueError:
+            assert False, "Thread count should be a number"
+        
+        #Check maxServers
+        if not maxServers == 'ALL':
+            try:
+                maxServers = int(maxServers)
+            except ValueError:
+                assert False, "Servers to query should be a number or ALL"
+        
         #W00T! Validation completed, save everything to instance
         self.domain = domain
         self.recordType = recordType
         self.listLocation = listLocation
         self.listLocal = listLocal
+        self.maxWorkers = maxWorkers
+        self.maxServers = maxServers
     
     def updateList(self):
         """
@@ -119,7 +133,21 @@ class lookup(object):
         
         with open(self.listLocal) as ll:
             raw = ll.read()
-            self.serverList = yaml.safe_load(raw)
+            serverList = yaml.safe_load(raw)
+        
+        #Get selected number of servers
+        if self.maxServers == 'ALL':
+            self.maxServers = len(serverList)
+        elif self.maxServers > len(serverList):
+            logging.warning(
+                "You asked me to query {0} servers, but I only have {1} servers in my serverlist".format(
+                    self.maxServers,
+                    len(serverList)
+            ))
+            
+            self.maxServers = len(serverList)
+        
+        self.serverList = random.sample(serverList,self.maxServers)
         
         logging.debug("Starting query against {0} servers".format(len(self.serverList)))
         
