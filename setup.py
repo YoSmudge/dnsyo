@@ -26,7 +26,7 @@ THE SOFTWARE.
 from setuptools import setup, find_packages
 import sys, os
  
-version = '0.1.3'
+version = '0.1.5'
 
 setup(name='dnsyo',
     version=version,
@@ -45,6 +45,7 @@ setup(name='dnsyo',
             "License :: OSI Approved :: MIT License",
             "Topic :: Internet :: Name Service (DNS)"
             ],
+    install_requires=['PyYAML==3.10', 'dnspython==1.11.1', 'requests==2.0.0'],
     entry_points="""
 [console_scripts]
 dnsyo = dnsyo.cli:run
