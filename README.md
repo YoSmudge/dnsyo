@@ -59,7 +59,7 @@ Here's what it does
 
 DNSYO requires Python 2.6 or later. The easiest way to install is by running
 
-    pip install -r https://raw.github.com/samarudge/dnsyo/master/requirements.txt --upgrade
+    pip install dnsyo --upgrade
 
 You should probably install it within a virtualenv.
 

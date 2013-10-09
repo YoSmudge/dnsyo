@@ -26,15 +26,25 @@ THE SOFTWARE.
 from setuptools import setup, find_packages
 import sys, os
  
-version = '0.1.2'
+version = '0.1.3'
 
 setup(name='dnsyo',
     version=version,
     author='Sam Rudge',
     author_email='sam@codesam.co.uk',
+    description='Query over 1500 global DNS servers and colate their results. Track the propagation of your domains around the world.',
+    url='https://github.com/samarudge/dnsyo',
     packages=['dnsyo'],
     include_package_data=False,
     zip_safe=True,
+    license='https://raw.github.com/samarudge/dnsyo/master/LICENCE.txt',
+    classifiers=[
+            "Environment :: Console",
+            "Intended Audience :: Developers",
+            "Intended Audience :: System Administrators",
+            "License :: OSI Approved :: MIT License",
+            "Topic :: Internet :: Name Service (DNS)"
+            ],
     entry_points="""
 [console_scripts]
 dnsyo = dnsyo.cli:run
