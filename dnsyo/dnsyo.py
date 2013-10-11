@@ -65,7 +65,7 @@ class lookup(object):
         domain,
         recordType,
         listLocation,
-        listLocal='/tmp/dnsyo-resovers-list-{0}.yaml'.format(os.getuid()),
+        listLocal='~/.dnsyo-resovers-list.yaml',
         expected=None,
         maxServers='ALL',
         maxWorkers=50):
@@ -78,7 +78,7 @@ class lookup(object):
         @param  domain:         Domain to query
         @param  recordType:     Type of record to query for
         @param  listLocation:   HTTP address of the X{resolver list}
-        @param  listLocal:      Local file where X{resolver list} should be stored, by default in /tmp and use the user ID to avoid conflicts
+        @param  listLocal:      Local file where X{resolver list} should be stored
         @param  expected:       Not used yet
         @param  maxServers:     Limit number of servers to query
         @param  maxWorkers:     Maximum number of threads
@@ -101,6 +101,9 @@ class lookup(object):
         
         #Again, ignore list URL validation, requests will just throw a funny
         assert type(listLocation) == str, "List location must be a string"
+        
+        #Resolve the user part of the path
+        listLocal = os.path.expanduser(listLocal)
         
         #Check local file location exists and is writable
         assert os.path.isdir(os.path.dirname(listLocal)), "{0} is not a directory!".format(os.path.dirname(listLocal))
