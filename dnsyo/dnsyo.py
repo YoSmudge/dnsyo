@@ -264,7 +264,7 @@ class lookup(object):
         
         if progress:
             sys.stdout.write("\n\n")
-        logging.debug("There are {0} unique resulsts".format(len(self.resultsColated)))
+        logging.debug("There are {0} unique results".format(len(self.resultsColated)))
     
     def outputStandard(self,extended=False):
         """
