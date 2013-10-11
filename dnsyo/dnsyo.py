@@ -1,3 +1,27 @@
+"""
+The MIT License (MIT)
+
+Copyright (c) 2013 Sam Rudge (sam@codesam.co.uk)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+"""
+
 import os
 import requests
 import yaml
@@ -18,7 +42,6 @@ class lookup(object):
     
     @cvar   lookupRecordTypes:      Types of DNS records supported, feel free to add more
     @cvar   updateListEvery:        How often to update the resolver list
-    @cvar   maxWorkers:             Maximum number of query workers to run
     @cvar   serverList:             Resolvers to query
     @cvar   results:                Store the results from each server
     @cvar   resultsColated:         The processed results
@@ -53,12 +76,17 @@ class lookup(object):
         @param  domain:         Domain to query
         @param  recordType:     Type of record to query for
         @param  listLocation:   HTTP address of the resolvers list
-        @param  listLocal:      Local file where resolver list should be stored
+        @param  listLocal:      Local file where resolver list should be stored, by default in /tmp and use the user ID to avoid conflicts
+        @param  expected:       Not used yet
+        @param  maxServers:     Limit number of servers to query
+        @param  maxWorkers:     Maximum number of threads
         
         @type   domain:         str
         @type   recordType:     str
         @type   listLocation:   str (HTTP address)
         @type   listLocal:      str (File path)
+        @type   maxServers:     int (or str `ALL`)
+        @type   maxWorkers:     int
         """
         
         #Ignore domain validation, if someone wants to lookup an invalid domain let them
@@ -67,7 +95,7 @@ class lookup(object):
         
         #Ensure record type is valid, and in our list of allowed records
         recordType = recordType.upper()
-        assert recordType in self.lookupRecordTypes, "Record type is not in valid list of records {0}".format(', '.join(self.lookupRecordTypes))
+        assert recordType in self.lookupRecordTypes, "Record type is not in valid list of record types {0}".format(', '.join(self.lookupRecordTypes))
         
         #Again, ignore list URL validation, requests will just throw a funny
         assert type(listLocation) == str, "List location must be a string"
@@ -106,15 +134,17 @@ class lookup(object):
         
         logging.debug("Checking local and remote resolver list for update")
         
+        #If the local resolver file does not exist, or it has expired
         if not os.path.isfile(self.listLocal) or os.path.getmtime(self.listLocal) < time.time()-self.updateListEvery:
             logging.info("Updating resolver list file")
             r = requests.get(self.listLocation)
             
             if r.status_code != 200:
+                #If status code response is not 200 and we don't already have a resolvers file, raise an exception
+                #Otherwise keep going with the old file
                 if not os.path.isfile(self.listLocal):
                     #File does not exist locally, we can't continue
                     raise EnvironmentError("List location returned HTTP status {0} and we don't have a local copy of resolvers to fall back on. Can't continue".format(r.status_code))
-                #Just keep going anyway, we'll just use the old file
             else:
                 #Save the file
                 with open(self.listLocal, 'w') as lf:
@@ -131,22 +161,28 @@ class lookup(object):
         
         logging.debug("Loading resolver file")
         
+        #Open and yaml parse the resolver list
         with open(self.listLocal) as ll:
             raw = ll.read()
+            #Use safe_load, just to be safe.
             serverList = yaml.safe_load(raw)
         
         #Get selected number of servers
         if self.maxServers == 'ALL':
+            #Set servers to the number of servers we have
             self.maxServers = len(serverList)
         elif self.maxServers > len(serverList):
+            #We were asked for more servers than exist in the list
             logging.warning(
                 "You asked me to query {0} servers, but I only have {1} servers in my serverlist".format(
                     self.maxServers,
                     len(serverList)
             ))
             
+            #Fallback to setting it to all
             self.maxServers = len(serverList)
         
+        #Get a random selection of the specified number of servers from the list
         self.serverList = random.sample(serverList,self.maxServers)
         
         logging.debug("Starting query against {0} servers".format(len(self.serverList)))
@@ -155,41 +191,54 @@ class lookup(object):
         startTime = datetime.utcnow()
         serverCounter = 0
         
+        #Run continuously while waiting for results
         while len(self.results) < len(self.serverList):
+            
+            #Count the workers still running
             runningWorkers = len([w for w in workers if w.result == None])
             
             #Get the results of any finished workers
             for i,w in enumerate(workers):
                 if w.result:
+                    #Add the results and get rid of the worker from the worker list
                     self.results.append(w.result)
                     workers.pop(i)
             
             #Output progress
             if progress:
+                #Output progress on one line that updates if terminal supports it
                 sys.stdout.write("\r\x1b[KStatus: Queried {0} of {1} servers, duration: {2}".format(
                     len(self.results),
                     len(self.serverList),
                     (datetime.utcnow()-startTime)
                 ))
+                #Make sure the stdout updates
                 sys.stdout.flush()
             
             #Start more workers if needed
             if runningWorkers < self.maxWorkers:
                 logging.debug("Starting {0} workers".format(self.maxWorkers - runningWorkers))
+                
+                #Start however many workers we need, based on max workers - running workers
                 for i in range(0,self.maxWorkers - runningWorkers):
                     if serverCounter < len(self.serverList):
+                        
+                        #Create a new thread with all the details
                         wt = QueryWorker()
                         wt.server = self.serverList[serverCounter]
                         wt.domain = self.domain
                         wt.recType = self.recordType
                         wt.daemon = True
-                    
+                        
+                        #Add it to the worker tracker
                         workers.append(wt)
-                    
+                        
+                        #Start it
                         wt.start()
                         
                         serverCounter += 1
             
+            #Pause a little bit
             time.sleep(0.1)
         
         #Now colate the results
@@ -313,18 +362,25 @@ class QueryWorker(threading.Thread):
     result = None
     
     def run(self):
+        """
+        Do a single DNS query against a server
+        """
+        
         logging.debug("Querying server {0}".format(self.server['ip']))
         
         try:
+            #Create a DNS resolver query
             rsvr = dns.resolver.Resolver()
             rsvr.nameservers = [self.server['ip']]
             rsvr.lifetime = 5
             rsvr.timeout = 5
             
             qry = rsvr.query(self.domain, self.recType)
+            
+            #Get the results, sort for consistancy
             results = sorted([r.to_text() for r in qry])
             success = True
-        except dns.resolver.NXDOMAIN:
+        except dns.resolver.NXDOMAIN:#Handle all the various exceptions
             success = False
             results = ['NXDOMAIN']
         except dns.resolver.NoNameservers:
@@ -337,6 +393,7 @@ class QueryWorker(threading.Thread):
             success = False
             results = ['Server Timeout']
         
+        #Save the results
         self.result = {
             'server':self.server,
             'results':results,
