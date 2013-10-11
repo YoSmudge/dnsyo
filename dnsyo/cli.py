@@ -1,4 +1,7 @@
 """
+Parse command line options
+
+
 The MIT License (MIT)
 
 Copyright (c) 2013 Sam Rudge (sam@codesam.co.uk)

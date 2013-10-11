@@ -1,4 +1,6 @@
 """
+Main DNSYO code, query remote servers and colate the results
+
 The MIT License (MIT)
 
 Copyright (c) 2013 Sam Rudge (sam@codesam.co.uk)
@@ -40,8 +42,8 @@ class lookup(object):
     Main DNSYO class, this does pretty much everything
     If you want to use it in your own scripts external to the CLI just look through the docstrings
     
-    @cvar   lookupRecordTypes:      Types of DNS records supported, feel free to add more
-    @cvar   updateListEvery:        How often to update the resolver list
+    @cvar   lookupRecordTypes:      Types of X{DNS records} supported, feel free to add more
+    @cvar   updateListEvery:        How often to update the X{resolver list}
     @cvar   serverList:             Resolvers to query
     @cvar   results:                Store the results from each server
     @cvar   resultsColated:         The processed results
@@ -75,8 +77,8 @@ class lookup(object):
         
         @param  domain:         Domain to query
         @param  recordType:     Type of record to query for
-        @param  listLocation:   HTTP address of the resolvers list
-        @param  listLocal:      Local file where resolver list should be stored, by default in /tmp and use the user ID to avoid conflicts
+        @param  listLocation:   HTTP address of the X{resolver list}
+        @param  listLocal:      Local file where X{resolver list} should be stored, by default in /tmp and use the user ID to avoid conflicts
         @param  expected:       Not used yet
         @param  maxServers:     Limit number of servers to query
         @param  maxWorkers:     Maximum number of threads
@@ -127,7 +129,7 @@ class lookup(object):
     
     def updateList(self):
         """
-        Check to see if the resolver list needs updating
+        Check to see if the X{resolver list} needs updating
         
         Get the filemtime on the local list, if it's older than the hosted list download the new one
         """
@@ -348,7 +350,7 @@ Here are the results;\n\n\n""".format(
 
 class QueryWorker(threading.Thread):
     """
-    A single worker, in charge of querying one DNS server
+    A single worker, in charge of querying one X{DNS server}
     
     @ivar   server:     Info on the server to query
     @ivar   domain:     Domain to query for
