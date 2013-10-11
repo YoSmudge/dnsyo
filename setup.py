@@ -27,7 +27,7 @@ THE SOFTWARE.
 from setuptools import setup, find_packages
 import sys, os
  
-version = '0.1.7'
+version = '1.0.1'
 
 setup(name='dnsyo',
     version=version,
