@@ -1,71 +1,165 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Dnsyo by samarudge</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <title>Dnsyo by samarudge</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Dnsyo</h1>
-        <p>Check your DNS against over 100 global DNS servers</p>
+    <div id="container">
+      <div class="inner">
 
-        <p class="view"><a href="https://github.com/samarudge/dnsyo">View the Project on GitHub <small>samarudge/dnsyo</small></a></p>
+        <header>
+          <h1>Dnsyo</h1>
+          <h2>Check your DNS against over 1500 global DNS servers</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/samarudge/dnsyo/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/samarudge/dnsyo/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/samarudge/dnsyo" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a name="dnsyo" class="anchor" href="#dnsyo"><span class="octicon octicon-link"></span></a>DNSYO</h1>
+
+<h2>
+<a name="aalllll-the-dns" class="anchor" href="#aalllll-the-dns"><span class="octicon octicon-link"></span></a>AALLLLL THE DNS</h2>
+
+<p>DNSYO is a little tool I built to help me keep track of DNS propagation.</p>
+
+<p>In short, it's <code>nslookup</code>, if <code>nslookup</code> queried over 1500 servers and collated their results.</p>
+
+<p>Here's what it does</p>
+
+<pre><code>$ dnsyo -t 100 -q ALL example.com
+Status: Queried 1804 of 1804 servers, duration: 0:00:09.334441
+
+ - RESULTS
+
+I asked 1804 servers for A records related to example.com,
+1771 responded with records and 33 gave errors
+Here are the results;
 
 
-        <ul>
-          <li><a href="https://github.com/samarudge/dnsyo/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/samarudge/dnsyo/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/samarudge/dnsyo">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+1738 servers responded with;
+93.184.216.119
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+26 servers responded with;
+127.0.0.1
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+1 servers responded with;
+97.87.216.210
+
+1 servers responded with;
+64.202.162.37
+
+1 servers responded with;
+68.87.91.199
+
+1 servers responded with;
+216.8.179.23
+
+2 servers responded with;
+77.244.128.69
+
+1 servers responded with;
+1.1.1.12
+
+
+
+And here are the errors;
+
+
+8 servers responded with;
+No Nameservers
+
+4 servers responded with;
+No Answer
+
+21 servers responded with;
+Server Timeout
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>DNSYO requires Python 2.6 or later. The easiest way to install is by running</p>
+
+<pre><code>pip install dnsyo --upgrade
+</code></pre>
+
+<p>You should probably install it within a virtualenv.</p>
+
+<p>If all goes well, you should be clear to start querying stuff</p>
+
+<p>To test, try running</p>
+
+<pre><code>dnsyo google.com
+</code></pre>
+
+<p>It will query all the DNS servers in the database, and give you the results.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>For more information on the flags run <code>dnsyo -h</code></p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="output-modes" class="anchor" href="#output-modes"><span class="octicon octicon-link"></span></a>Output modes</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>DNSYO has 3 output modes;</p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<ul>
+<li>standard - Will display all the results and errors from querying</li>
+<li>extended - Same as standard but includes the names and addresses of the servers it queried</li>
+<li>simple - Simple output mode which is useful for UNIX scripting</li>
+</ul><p>To change output mode, pass ether <code>--extended</code> or <code>--simple</code> to DNSYO.</p>
 
 <h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<a name="resolver-list" class="anchor" href="#resolver-list"><span class="octicon octicon-link"></span></a>Resolver list</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/samarudge">samarudge</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+<p>DNSYO periodically updates it's internal resolver database from this repo. The first time you run it, and once every 2 weeks, it will try to download the <code>resolver-list.yml</code> file and store it to your systems <code>/tmp</code> directory. If you know of any more open DNS resolvers feel free to add them to the list.</p>
+
+<p>By default, DNSYO will pick 500 servers at random from it's list to query. You can change this with the <code>--query</code> flag. If you want DNSYO to query all the servers just pass <code>--query=ALL</code></p>
+
+<h3>
+<a name="record-types" class="anchor" href="#record-types"><span class="octicon octicon-link"></span></a>Record types</h3>
+
+<p>Just like dig, you can pass the record type as the second positional argument to DNSYO, so to get Google's MX records just do</p>
+
+<pre><code>dnsyo google.com MX
+</code></pre>
+
+<h2>
+<a name="licence" class="anchor" href="#licence"><span class="octicon octicon-link"></span></a>Licence</h2>
+
+<p>DNSYO is released under the MIT licence, see <code>LICENCE.txt</code> for more info</p>
+
+<h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
+
+<p>Module documentation is available for dnsyo, you can view the module documentation as generated by <a href="http://codesam-files.s3-website-us-east-1.amazonaws.com/dnsyo-docs/epydoc/">epydoc</a> or <a href="http://codesam-files.s3-website-us-east-1.amazonaws.com/dnsyo-docs/docco/dnsyo.html">docco</a></p>
+        </section>
+
+        <footer>
+          Dnsyo is maintained by <a href="https://github.com/samarudge">samarudge</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
   </body>
 </html>
