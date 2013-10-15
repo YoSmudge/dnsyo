@@ -69,7 +69,7 @@ To test, try running
 
     dnsyo google.com
 
-It will query all the DNS servers in the database, and give you the results.
+It will query 500 random DNS servers in the database, and give you the results.
 
 ##Usage
 
@@ -87,13 +87,13 @@ To change output mode, pass ether `--extended` or `--simple` to DNSYO.
 
 ###Resolver list
 
-DNSYO periodically updates it's internal resolver database from this repo. The first time you run it, and once every 2 weeks, it will try to download the `resolver-list.yml` file and store it to your systems `/tmp` directory. If you know of any more open DNS resolvers feel free to add them to the list.
+DNSYO periodically updates it's internal resolver database from this repo. The first time you run it, and once every 2 weeks, it will try to download the `resolver-list.yml` file and store it to `~/.dnsyo-resovers-list.yaml` directory. If you know of any more open DNS resolvers feel free to add them to the list.
 
 By default, DNSYO will pick 500 servers at random from it's list to query. You can change this with the `--query` flag. If you want DNSYO to query all the servers just pass `--query=ALL`
 
 ###Record types
 
-Just like dig, you can pass the record type as the second positional argument to DNSYO, so to get Google's MX records just do
+Just like `dig`, you can pass the record type as the second positional argument to DNSYO, so to get Google's MX records just do
 
     dnsyo google.com MX
 
