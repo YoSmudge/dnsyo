@@ -50,8 +50,7 @@ class lookup(object):
     """
     
     #I'd like to support IPV6 but my local network doesn't so I can't test
-    #If you can add support for AAAA records and test it I will give you a hypothetical cookie
-    lookupRecordTypes = ['A','CNAME','MX','NS','PTR','SOA','SPF','SRV','TXT']
+    lookupRecordTypes = ['A','CNAME','MX','NS','PTR','SOA','SPF','SRV','TXT', 'AAAA']
     
     #Update the resolver list every 14 days
     updateListEvery = 60*60*24*14
