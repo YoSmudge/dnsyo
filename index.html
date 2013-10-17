@@ -132,7 +132,7 @@ Server Timeout
 
 <p>DNSYO periodically updates it's internal resolver database from this repo. The first time you run it, and once every 2 weeks, it will try to download the <code>resolver-list.yml</code> file and store it to <code>~/.dnsyo-resovers-list.yaml</code> directory. If you know of any more open DNS resolvers feel free to add them to the list.</p>
 
-<p>By default, DNSYO will pick 500 servers at random from it's list to query. You can change this with the <code>--query</code> flag. If you want DNSYO to query all the servers just pass <code>--query=ALL</code></p>
+<p>By default, DNSYO will pick 500 servers at random from it's list to query. You can change this with the <code>--servers</code> or <code>-q</code> flag. If you want DNSYO to query all the servers just pass <code>--servers=ALL</code> or <code>-q=ALL</code>.</p>
 
 <h3>
 <a name="record-types" class="anchor" href="#record-types"><span class="octicon octicon-link"></span></a>Record types</h3>
