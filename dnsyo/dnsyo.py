@@ -163,9 +163,9 @@ class lookup(object):
         logging.debug("Checking local and remote resolver list for update")
 
         #If the local resolver file does not exist, or it has expired
-        if not os.path.isfile(self.listLocal) or\
-            os.path.getmtime(self.listLocal) <\
-            time.time()-self.updateListEvery:
+        if not os.path.isfile(self.listLocal) or \
+            os.path.getmtime(self.listLocal) <   \
+            time.time() - self.updateListEvery:
                 logging.info("Updating resolver list file")
                 r = requests.get(self.listLocation)
 
@@ -256,7 +256,7 @@ class lookup(object):
                                  "duration: {2}".format(
                                      len(self.results),
                                      len(self.serverList),
-                                     (datetime.utcnow()-startTime)
+                                     (datetime.utcnow() - startTime)
                                  )
                                  )
                 #Make sure the stdout updates
@@ -372,7 +372,6 @@ Here are the results;\n\n\n""".format(
                 sys.stdout.write("".join(out))
             else:
                 errors.append("".join(out))
-
 
         sys.stdout.write("\n\nAnd here are the errors;\n\n\n")
 
