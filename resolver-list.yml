@@ -8991,3 +8991,48 @@
     country: "RU"
     reverse: "82.200.124.12"
     provider: "ZSTTKAS JSC _Zap-Sib TransTeleCom_, Novosibirsk"
+  -
+    ip: "168.126.63.1"
+    country: "KR"
+    reverse: "kns.kornet.net"
+    provider: "KORNET-KR, Korea Telecom"
+  -
+    ip: "168.126.63.2"
+    country: "KR"
+    reverse: "kns2.kornet.net"
+    provider: "KORNET-KR, Korea Telecom"
+  -
+    ip: "210.220.163.82"
+    country: "KR"
+    reverse: "bns1.hananet.net"
+    provider: "broadNnet-KR, SK Broadband Co Ltd"
+  -
+    ip: "219.250.36.130"
+    country: "KR"
+    reverse: "bns2.hananet.net"
+    provider: "broadNnet-KR, SK Broadband Co Ltd"
+  -
+    ip: "164.124.101.2"
+    country: "KR"
+    reverse: "ns.dacom.co.kr"
+    provider: "BORANET-KR, LG DACOM Corporation"
+  -
+    ip: "203.248.252.2"
+    country: "KR"
+    reverse: "cns3.bora.net"
+    provider: "BORANET-KR, LG DACOM Corporation"
+  -
+    ip: "164.124.107.9"
+    country: "KR"
+    reverse: "cns2.bora.net"
+    provider: "BORANET-KR, LG DACOM Corporation"
+  -
+    ip: "210.181.1.24"
+    country: "KR"
+    reverse: "ns.cjdream.net"
+    provider: "DREAMX-KR, DREAMLINE CO."
+  -
+    ip: "210.181.4.25"
+    country: "KR"
+    reverse: "ns2.cjdream.net"
+    provider: "DREAMX-KR, DREAMLINE CO."
