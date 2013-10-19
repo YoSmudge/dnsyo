@@ -175,15 +175,10 @@ class lookup(object):
                     #Otherwise keep going with the old file
                     if not os.path.isfile(self.listLocal):
                         #File does not exist locally, we can't continue
-                        raise EnvironmentError("List location returned HTTP "
-                                               "status {0} and we don't have "
-                                               "a local copy of resolvers to "
-                                               "fall back on. "
-                                               "Can't continue"
-                                               .format(
-                                                   r.status_code
-                                               )
-                                               )
+                        raise EnvironmentError("List location returned HTTP status {0} and we don't have a local copy of resolvers to fall back on. Can't continue".format(
+   r.status_code
+                            )
+                        )
                 else:
                     #Save the file
                     with open(self.listLocal, 'w') as lf:
