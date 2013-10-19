@@ -114,10 +114,9 @@ class lookup(object):
 
         #Ensure record type is valid, and in our list of allowed records
         recordType = recordType.upper()
-        assert recordType in self.lookupRecordTypes, "Record type is not in"\
-            " valid list of record types {0}".format(
-                ', '.join(self.lookupRecordTypes)
-            )
+        assert recordType in self.lookupRecordTypes, \
+            "Record type is not in valid list of record types {0}". \
+            format(', '.join(self.lookupRecordTypes))
 
         #Again, ignore list URL validation, requests will just throw a funny
         assert type(listLocation) == str, "List location must be a string"
@@ -164,7 +163,7 @@ class lookup(object):
 
         #If the local resolver file does not exist, or it has expired
         if not os.path.isfile(self.listLocal) or \
-            os.path.getmtime(self.listLocal) <   \
+            os.path.getmtime(self.listLocal) < \
             time.time() - self.updateListEvery:
                 logging.info("Updating resolver list file")
                 r = requests.get(self.listLocation)
@@ -247,13 +246,11 @@ class lookup(object):
             if progress:
                 #Output progress on one line that updates if terminal
                 #supports it
-                sys.stdout.write("\r\x1b[KStatus: Queried {0} of {1} servers,"
-                                 "duration: {2}".format(
-                                     len(self.results),
-                                     len(self.serverList),
-                                     (datetime.utcnow() - startTime)
-                                 )
-                                 )
+                sys.stdout.write(
+                    "\r\x1b[KStatus: Queried {0} of {1} servers, duration: {2}"
+                    .format(len(self.results), len(self.serverList),
+                            (datetime.utcnow() - startTime))
+                )
                 #Make sure the stdout updates
                 sys.stdout.flush()
 
@@ -345,12 +342,10 @@ Here are the results;\n\n\n""".format(
             if extended:
                 out.append("The following servers\n")
                 out.append("\n".join([
-                    " - {0} ({1} - {2})".format(
-                        s['ip'],
-                        s['provider'],
-                        s['country'])
-                    for s in rsp['servers']
-                ]))
+                    " - {0} ({1} - {2})".
+                    format(s['ip'], s['provider'], s['country'])
+                    for s in rsp['servers']]))
+
                 out.append("\nresponded with;\n")
             else:
                 out.append("{num_servers} servers responded with;\n".format(
@@ -380,11 +375,8 @@ Here are the results;\n\n\n""".format(
         out = []
         errors = []
 
-        successfulResponses = len(
-            [
-                True for rsp in self.results if rsp['success']
-            ]
-        )
+        successfulResponses = \
+            len([True for rsp in self.results if rsp['success']])
 
         out.append("INFO QUERIED {0}".format(
             len(self.serverList)))
