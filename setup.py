@@ -30,7 +30,11 @@ import os
 import sys
 
 
-version = '1.0.3'
+version = '1.0.5'
+install_requires = ['PyYAML==3.10', 'dnspython==1.11.1', 'requests==2.0.0']
+
+if sys.version[:2] <= [2, 6]:
+    install_requires.append('argparse==1.2.1')
 
 setup(name='dnsyo',
       version=version,
@@ -50,11 +54,7 @@ setup(name='dnsyo',
           "License :: OSI Approved :: MIT License",
           "Topic :: Internet :: Name Service (DNS)"
       ],
-      install_requires=[
-          'PyYAML==3.10',
-          'dnspython==1.11.1',
-          'requests==2.0.0'
-      ],
+      install_requires=install_requires,
       entry_points="""
 [console_scripts]
 dnsyo = dnsyo.cli:run
