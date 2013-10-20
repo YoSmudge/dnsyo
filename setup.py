@@ -27,7 +27,7 @@ THE SOFTWARE.
 from setuptools import setup, find_packages
 import sys, os
 
-version = '1.0.3'
+version = '1.0.4'
 install_requires = ['PyYAML==3.10', 'dnspython==1.11.1', 'requests==2.0.0']
 
 if sys.version[:2] <= [2, 6]:
