@@ -128,6 +128,9 @@ def run():
     #Update the nameserver list, if needed
     lookup.updateList()
 
+    #Filter the list to only the servers we want
+    lookup.prepareList()
+
     try:
         #Query the servers, display progress if not simple output
         lookup.query(

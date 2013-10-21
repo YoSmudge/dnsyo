@@ -184,13 +184,9 @@ class lookup(object):
                     with open(self.listLocal, 'w') as lf:
                         lf.write(r.text)
 
-    def query(self, progress=True):
+    def prepareList(self):
         """
-        Run the query
-
-        Query spins out multiple thread workers to query each server
-
-        @param  progress:   Write progress to stdout
+        Load and filter the server list for only the servers we care about
         """
 
         logging.debug("Loading resolver file")
@@ -234,6 +230,20 @@ class lookup(object):
         #Get a random selection of the specified number
         #of servers from the list
         self.serverList = random.sample(serverList, self.maxServers)
+
+    def query(self, progress=True):
+        """
+        Run the query
+
+        Query spins out multiple thread workers to query each server
+
+        @param  progress:   Write progress to stdout
+        """
+
+        if len(self.serverList) == 0:
+            logging.warning("Server list is empty. Attempting "
+                            "to populate with prepareList")
+            self.prepareList()
 
         logging.debug("Starting query against {0} servers".format(
             len(self.serverList)))
