@@ -51,7 +51,9 @@ def run():
          'Extended output mode including server addresses'],
         ['threads:t', 'store', 'Number of worker threads to use', 100],
         ['servers:q', 'store',
-         'Maximum number of servers to query (or ALL)', 500]
+         'Maximum number of servers to query (or ALL)', 500],
+        ['country:c', 'store',
+         'Query servers by two letter country code']
     ]
 
     #Create an argparse
@@ -115,7 +117,8 @@ def run():
             recordType=opts.type,
             listLocation=opts.resolvlist,
             maxWorkers=opts.threads,
-            maxServers=opts.servers
+            maxServers=opts.servers,
+            country=opts.country
         )
     except AssertionError as e:
         #Some arguments were not valid, show the error and exit
@@ -125,10 +128,14 @@ def run():
     #Update the nameserver list, if needed
     lookup.updateList()
 
-    #Query the servers, display progress if not simple output
-    lookup.query(
-        progress=not opts.simple
-    )
+    try:
+        #Query the servers, display progress if not simple output
+        lookup.query(
+            progress=not opts.simple
+        )
+    except ValueError as e:
+        p.error(e)
+        sys.exit(3)
 
     #Output the relevant result format
     if opts.simple:

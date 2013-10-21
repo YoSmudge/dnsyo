@@ -53,7 +53,6 @@ class lookup(object):
     @cvar   resultsColated:         The processed results
     """
 
-    #I'd like to support IPV6 but my local network doesn't so I can't test
     lookupRecordTypes = ['A',
                          'CNAME',
                          'MX',
@@ -80,7 +79,8 @@ class lookup(object):
                  listLocal='~/.dnsyo-resovers-list.yaml',
                  expected=None,
                  maxServers='ALL',
-                 maxWorkers=50
+                 maxWorkers=50,
+                 country=None
                  ):
         """
         Get everything setup and ready to go
@@ -150,6 +150,7 @@ class lookup(object):
         self.listLocal = listLocal
         self.maxWorkers = maxWorkers
         self.maxServers = maxServers
+        self.country = country.upper() if country else None
 
     def updateList(self):
         """
@@ -199,6 +200,19 @@ class lookup(object):
             raw = ll.read()
             #Use safe_load, just to be safe.
             serverList = yaml.safe_load(raw)
+
+        # Remove all but the specified countries from the server list
+        if self.country is not None:
+            logging.debug("Filtering serverList for country {0}"
+                          .format(self.country))
+
+            serverList = [d for d in serverList
+                          if d['country'] == self.country]
+
+            if len(serverList) == 0:
+                raise ValueError("There are no servers avaliable "
+                                 "with the country code {0}"
+                                 .format(self.country))
 
         #Get selected number of servers
         if self.maxServers == 'ALL':
