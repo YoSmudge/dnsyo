@@ -24,35 +24,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """
 
-from setuptools import setup, find_packages
-import sys, os
+from setuptools import find_packages
+from setuptools import setup
+import os
+import sys
 
-version = '1.0.4'
+
+version = '1.0.5'
 install_requires = ['PyYAML==3.10', 'dnspython==1.11.1', 'requests==2.0.0']
 
 if sys.version[:2] <= [2, 6]:
     install_requires.append('argparse==1.2.1')
 
 setup(name='dnsyo',
-    version=version,
-    author='Sam Rudge',
-    author_email='sam@codesam.co.uk',
-    description='Query over 1500 global DNS servers and colate their results. Track the propagation of your domains around the world.',
-    url='https://github.com/samarudge/dnsyo',
-    packages=['dnsyo'],
-    include_package_data=False,
-    zip_safe=True,
-    license='https://raw.github.com/samarudge/dnsyo/master/LICENCE.txt',
-    classifiers=[
-            "Environment :: Console",
-            "Intended Audience :: Developers",
-            "Intended Audience :: System Administrators",
-            "License :: OSI Approved :: MIT License",
-            "Topic :: Internet :: Name Service (DNS)"
-            ],
-    install_requires=install_requires,
-    entry_points="""
+      version=version,
+      author='Sam Rudge',
+      author_email='sam@codesam.co.uk',
+      description=('Query over 1500 global DNS servers and colate their '
+           'results. Track the propagation of your domains around the world.'),
+      url='https://github.com/samarudge/dnsyo',
+      packages=['dnsyo'],
+      include_package_data=False,
+      zip_safe=True,
+      license='https://raw.github.com/samarudge/dnsyo/master/LICENCE.txt',
+      classifiers=[
+          "Environment :: Console",
+          "Intended Audience :: Developers",
+          "Intended Audience :: System Administrators",
+          "License :: OSI Approved :: MIT License",
+          "Topic :: Internet :: Name Service (DNS)"
+      ],
+      install_requires=install_requires,
+      entry_points="""
 [console_scripts]
 dnsyo = dnsyo.cli:run
 """
-    )
+      )
