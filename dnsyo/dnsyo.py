@@ -36,6 +36,7 @@ from datetime import datetime
 import dns.resolver
 import itertools
 import json
+import pkg_resources
 
 
 class lookup(object):
@@ -167,7 +168,14 @@ class lookup(object):
             os.path.getmtime(self.listLocal) < \
             time.time() - self.updateListEvery:
                 logging.info("Updating resolver list file")
-                r = requests.get(self.listLocation)
+                r = requests.get(
+                    self.listLocation,
+                    headers={
+                        'User-Agent':"dnsyo/{0}".format(
+                            pkg_resources.get_distribution("dnsyo").version
+                        )
+                    }
+                )
 
                 if r.status_code != 200:
                     #If status code response is not 200 and we don't
