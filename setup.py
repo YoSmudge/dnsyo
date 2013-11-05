@@ -30,8 +30,8 @@ import os
 import sys
 
 
-version = '1.1.3'
-install_requires = ['PyYAML==3.10', 'dnspython==1.11.1', 'requests==2.0.0']
+version = '1.1.4'
+install_requires = ['PyYAML==3.10', 'dnspython==1.11.1', 'requests>= 2.0.0, < 2.1.0']
 
 if sys.version[:2] <= [2, 6]:
     install_requires.append('argparse==1.2.1')
