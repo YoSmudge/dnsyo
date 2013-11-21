@@ -6162,16 +6162,6 @@
     reverse: "137.ip-176-31-189.eu"
     country: "FR"
   -
-    ip: "195.60.164.37"
-    country: "FR"
-    reverse: "ns2.o1nk.net"
-    provider: "OVH OVH Systems"
-  -
-    ip: "195.60.164.69"
-    provider: "OVH OVH Systems"
-    reverse: "ns1.o1nk.net"
-    country: "FR"
-  -
     ip: "213.251.133.164"
     provider: "OVH OVH Systems"
     reverse: "ks31884.kimsufi.com"
