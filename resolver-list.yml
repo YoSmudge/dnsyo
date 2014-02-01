@@ -3797,16 +3797,6 @@
     reverse: "ns4.iij.ad.jp"
     country: "JP"
   -
-    ip: "210.130.0.1"
-    provider: "IIJ Internet Initiative Japan Inc."
-    reverse: "ns01.iij4u.or.jp"
-    country: "JP"
-  -
-    ip: "210.130.1.1"
-    country: "JP"
-    reverse: "ns11.iij4u.or.jp"
-    provider: "IIJ Internet Initiative Japan Inc."
-  -
     ip: "195.178.195.1"
     provider: "IIP-NET-AS5429 _UMOS CENTER_ LLC"
     reverse: "195.178.195.1"
