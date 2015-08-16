@@ -95,8 +95,6 @@ class lookup(object):
         @param  maxServers:     Limit number of servers to query
         @param  maxWorkers:     Maximum number of threads
 
-        @type   domain:         str
-        @type   recordType:     str
         @type   listLocation:   str (HTTP address)
         @type   listLocal:      str (File path)
         @type   maxServers:     int (or str `ALL`)
@@ -237,6 +235,9 @@ class lookup(object):
         @param  domain:     Domain to query
         @param  recordType: Type of record to query for
         @param  progress:   Write progress to stdout
+
+        @type   domain:         str
+        @type   recordType:     str
         """
 
         # Ignore domain validation, if someone wants to lookup an invalid
