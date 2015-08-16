@@ -30,7 +30,7 @@ import os
 import sys
 
 
-version = '2.0.0'
+version = '2.0.1'
 install_requires = ['PyYAML==3.10', 'dnspython==1.11.1', 'requests>= 2.0.0, < 2.1.0']
 
 if sys.version[:2] <= [2, 6]:

@@ -66,25 +66,25 @@ def run():
          'Destination resolver list for update']
     ]
 
-    #Create an argparse
+    # Create an argparse
     p = ArgumentParser(
         usage="%(prog)s [options] domain [type]",
         description="Query lots of DNS servers and colate the results",
         epilog="https://github.com/samarudge/dnsyo"
     )
 
-    #Load the options
+    # Load the options
     for opt in options:
-        #Split them into name and short flag
+        # Split them into name and short flag
         if ":" in opt[0]:
             name, flag = opt[0].split(':')
         else:
             name, flag = opt[0], None
 
-        #Set a default
+        # Set a default
         default = opt[3] if len(opt) > 3 else None
 
-        #Add it to the parser object
+        # Add it to the parser object
         arguments = ['--{0}'.format(name)]
         if flag:
             arguments.append('-{0}'.format(flag))
@@ -97,7 +97,7 @@ def run():
             default=default
         )
 
-    #Add the default positional arguments
+    # Add the default positional arguments
     p.add_argument('domain', action="store",
                    help="Domain to query", default=None,
                    nargs="?")
@@ -112,27 +112,27 @@ def run():
         p.error("You must provide a domain!")
         sys.exit(3)
 
-    #Setup logging
+    # Setup logging
     if len(logging.root.handlers) == 0:  # Only if there aren't any loggers
         if opts.verbose:
-            #If the verbose option is passed, set debug output
+            # If the verbose option is passed, set debug output
             logging.basicConfig(
                 level=logging.DEBUG
             )
         elif opts.simple:
-            #If the simple option is passed only output warnings and errors
+            # If the simple option is passed only output warnings and errors
             logging.basicConfig(
                 level=logging.WARNING
             )
         else:
-            #Otherwise just info
+            # Otherwise just info
             logging.basicConfig(
                 level=logging.INFO
             )
 
         logging.debug("Debug logging enabled")
 
-    #Prepare the lookup request
+    # Prepare the lookup request
     try:
         lookup = dnsyo.lookup(
             listLocation=opts.resolverlist,
@@ -142,7 +142,7 @@ def run():
             country=opts.country
         )
     except AssertionError as e:
-        #Some arguments were not valid, show the error and exit
+        # Some arguments were not valid, show the error and exit
         p.error(e)
         sys.exit(3)
 
@@ -156,14 +156,14 @@ def run():
     else:
         # Do a lookup
 
-        #Update the nameserver list, if needed
+        # Update the nameserver list, if needed
         lookup.updateList()
 
-        #Filter the list to only the servers we want
+        # Filter the list to only the servers we want
         lookup.prepareList()
 
         try:
-            #Query the servers, display progress if not simple output
+            # Query the servers, display progress if not simple output
             lookup.query(
                 domain=opts.domain,
                 recordType=opts.type,
@@ -173,7 +173,7 @@ def run():
             p.error(e)
             sys.exit(3)
 
-        #Output the relevant result format
+        # Output the relevant result format
         if opts.simple:
             lookup.outputSimple()
         else:

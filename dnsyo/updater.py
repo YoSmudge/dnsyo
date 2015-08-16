@@ -88,11 +88,13 @@ class update(object):
                 len(duplicateServers)
             ))
 
-        logging.info("Will test {0} servers currently in list "
-                    "against {1} test records".format(
-            len(foundServers),
-            len(self.testRecords)
-        ))
+        logging.info(
+            "Will test {0} servers currently in list "
+            "against {1} test records".format(
+                len(foundServers),
+                len(self.testRecords)
+            )
+        )
 
         self.testServers()
 
@@ -103,20 +105,24 @@ class update(object):
         for test in self.testRecords:
             logging.info("Running test query {0}".format(test['query']))
             self.lookup.query(*test['query'], progress=False)
-            
+
             for result in self.lookup.resultsColated:
-                if not result['success'] or (\
-                    test.get('result') and not test['result'] in result['results']\
+                if not result['success'] or (
+                    test.get('result') and
+                    not test['result'] in result['results']
                 ):
                     logging.warning("{0} servers failed ({1})".format(
                         len(result['servers']),
                         ",".join(result['results'])
                     ))
-                    
+
                     for s in result['servers']:
                         serverFailures[s['ip']] += 1
 
-        passedServers = [s for s in self.sourceServers if serverFailures[s['ip']] < len(self.testRecords)]
+        passedServers = [
+            s for s in self.sourceServers
+            if serverFailures[s['ip']] < len(self.testRecords)
+        ]
 
         logging.info("Tested {0} servers, found {1} working".format(
             len(self.sourceServers),
@@ -124,14 +130,24 @@ class update(object):
         ))
 
         # Calculate the change from current resolvers
-        currentResolvers = self.lookup.prepareList(self.outputFile, noSample=True)
+        currentResolvers = self.lookup.prepareList(
+            self.outputFile,
+            noSample=True
+        )
+
         logging.info("Loaded {0} resolvers from destination list".format(
             len(currentResolvers)
         ))
-        
-        serversRemoved = [s for s in currentResolvers if not s in passedServers]
-        serversAdded = [s for s in passedServers if not s in currentResolvers]
-        
+
+        serversRemoved = [
+            s for s in currentResolvers
+            if s not in passedServers
+        ]
+        serversAdded = [
+            s for s in passedServers
+            if s not in currentResolvers
+        ]
+
         # Generate the summary file
         with open(os.path.expanduser(self.summaryFile), 'w') as f:
             f.write("Updated server list ({0} added, {1} removed)\n\n".format(
@@ -139,7 +155,9 @@ class update(object):
                 len(serversRemoved)
             ))
 
-            for summaryDetails in [("Added", serversAdded), ("Removed", serversRemoved)]:
+            for summaryDetails in [
+                ("Added", serversAdded), ("Removed", serversRemoved)
+            ]:
                 if len(summaryDetails[1]) > 0:
                     f.write("Servers {0}\n---\n".format(
                         summaryDetails[0]
@@ -154,7 +172,7 @@ class update(object):
                         for s in summaryDetails[1]
                     ]))
                     f.write("\n\n")
-        
+
         # Write out the destination file
         with open(os.path.expanduser(self.outputFile), 'w') as f:
             f.write("""# List of known *working* servers

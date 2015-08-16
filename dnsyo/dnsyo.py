@@ -65,7 +65,7 @@ class lookup(object):
                          'TXT',
                          'AAAA']
 
-    #Update the resolver list every 14 days
+    # Update the resolver list every 14 days
     updateListEvery = 60 * 60 * 24 * 14
 
     serverList = []
@@ -103,23 +103,23 @@ class lookup(object):
         @type   maxWorkers:     int
         """
 
-        #Ignore list URL validation, requests will just throw a funny
+        # Ignore list URL validation, requests will just throw a funny
         assert type(listLocation) == str, "List location must be a string"
 
-        #Check maxWorkers is valid
+        # Check maxWorkers is valid
         try:
             maxWorkers = int(maxWorkers)
         except ValueError:
             assert False, "Thread count should be a number"
 
-        #Check maxServers
+        # Check maxServers
         if not maxServers == 'ALL':
             try:
                 maxServers = int(maxServers)
             except ValueError:
                 assert False, "Servers to query should be a number or ALL"
 
-        #W00T! Validation completed, save everything to instance
+        # W00T! Validation completed, save everything to instance
         self.listLocation = listLocation
         self.listLocal = listLocal
         self.maxWorkers = maxWorkers
@@ -136,37 +136,37 @@ class lookup(object):
 
         logging.debug("Checking local and remote resolver list for update")
 
-        #If the local resolver file does not exist, or it has expired
+        # If the local resolver file does not exist, or it has expired
         if not os.path.isfile(self.listLocal) or \
-            os.path.getmtime(self.listLocal) < \
-            time.time() - self.updateListEvery:
-                logging.info("Updating resolver list file")
-                r = requests.get(
-                    self.listLocation,
-                    headers={
-                        'User-Agent': "dnsyo/{0}".format(
-                            pkg_resources.get_distribution("dnsyo").version
-                        )
-                    }
-                )
+                os.path.getmtime(self.listLocal) < \
+                time.time() - self.updateListEvery:
+            logging.info("Updating resolver list file")
+            r = requests.get(
+                self.listLocation,
+                headers={
+                    'User-Agent': "dnsyo/{0}".format(
+                        pkg_resources.get_distribution("dnsyo").version
+                    )
+                }
+            )
 
-                if r.status_code != 200:
-                    #If status code response is not 200 and we don't
-                    #already have a resolvers file, raise an exception
-                    #Otherwise keep going with the old file
-                    if not os.path.isfile(self.listLocal):
-                        #File does not exist locally, we can't continue
-                        raise EnvironmentError(
-                            "List location returned HTTP status {0} and we "
-                            "don't have a local copy of resolvers to fall "
-                            "back on. Can't continue".format(
-                                r.status_code
-                            )
+            if r.status_code != 200:
+                # If status code response is not 200 and we don't
+                # already have a resolvers file, raise an exception
+                # Otherwise keep going with the old file
+                if not os.path.isfile(self.listLocal):
+                    # File does not exist locally, we can't continue
+                    raise EnvironmentError(
+                        "List location returned HTTP status {0} and we "
+                        "don't have a local copy of resolvers to fall "
+                        "back on. Can't continue".format(
+                            r.status_code
                         )
-                else:
-                    #Save the file
-                    with open(self.listLocal, 'w') as lf:
-                        lf.write(r.text)
+                    )
+            else:
+                # Save the file
+                with open(self.listLocal, 'w') as lf:
+                    lf.write(r.text)
 
     def prepareList(self, listFile=False, noSample=False):
         """
@@ -177,19 +177,19 @@ class lookup(object):
 
         listFileLocation = self.listLocal if not listFile else listFile
 
-        #Resolve the user part of the path
+        # Resolve the user part of the path
         listLocal = os.path.expanduser(listFileLocation)
 
-        #Check local file location exists and is writable
+        # Check local file location exists and is writable
         assert os.path.isdir(os.path.dirname(listLocal)),\
             "{0} is not a directory!".format(os.path.dirname(listLocal))
         assert os.access(os.path.dirname(listLocal), os.W_OK),\
             "{0} is not writable!".format(os.path.dirname(listLocal))
 
-        #Open and yaml parse the resolver list
+        # Open and yaml parse the resolver list
         with open(listLocal) as ll:
             raw = ll.read()
-            #Use safe_load, just to be safe.
+            # Use safe_load, just to be safe.
             serverList = yaml.safe_load(raw)
 
         # Remove all but the specified countries from the server list
@@ -205,12 +205,12 @@ class lookup(object):
                                  "with the country code {0}"
                                  .format(self.country))
 
-        #Get selected number of servers
+        # Get selected number of servers
         if self.maxServers == 'ALL' or noSample:
-            #Set servers to the number of servers we have
+            # Set servers to the number of servers we have
             self.maxServers = len(serverList)
         elif self.maxServers > len(serverList):
-            #We were asked for more servers than exist in the list
+            # We were asked for more servers than exist in the list
             logging.warning(
                 "You asked me to query {0} servers, but I only have "
                 "{1} servers in my serverlist".format(
@@ -219,11 +219,11 @@ class lookup(object):
                 )
             )
 
-            #Fallback to setting it to all
+            # Fallback to setting it to all
             self.maxServers = len(serverList)
 
-        #Get a random selection of the specified number
-        #of servers from the list
+        # Get a random selection of the specified number
+        # of servers from the list
         self.serverList = random.sample(serverList, self.maxServers)
 
         return self.serverList
@@ -239,11 +239,11 @@ class lookup(object):
         @param  progress:   Write progress to stdout
         """
 
-        #Ignore domain validation, if someone wants to lookup an invalid
-        #domain let them, just ensure it's a string
+        # Ignore domain validation, if someone wants to lookup an invalid
+        # domain let them, just ensure it's a string
         assert type(domain) == str, "Domain must be a string"
 
-        #Ensure record type is valid, and in our list of allowed records
+        # Ensure record type is valid, and in our list of allowed records
         recordType = recordType.upper()
         assert recordType in self.lookupRecordTypes, \
             "Record type is not in valid list of record types {0}". \
@@ -266,64 +266,64 @@ class lookup(object):
         startTime = datetime.utcnow()
         serverCounter = 0
 
-        #Run continuously while waiting for results
+        # Run continuously while waiting for results
         while len(self.results) < len(self.serverList):
 
-            #Count the workers still running
+            # Count the workers still running
             runningWorkers = len([w for w in workers if w.result is None])
 
-            #Get the results of any finished workers
+            # Get the results of any finished workers
             for i, w in enumerate(workers):
                 if w.result:
-                    #Add the results and get rid of the worker from the
-                    #worker list
+                    # Add the results and get rid of the worker from the
+                    # worker list
                     self.results.append(w.result)
                     workers.pop(i)
 
-            #Output progress
+            # Output progress
             if progress:
-                #Output progress on one line that updates if terminal
-                #supports it
+                # Output progress on one line that updates if terminal
+                # supports it
                 sys.stdout.write(
                     "\r\x1b[KStatus: Queried {0} of {1} servers, duration: {2}"
                     .format(len(self.results), len(self.serverList),
                             (datetime.utcnow() - startTime))
                 )
-                #Make sure the stdout updates
+                # Make sure the stdout updates
                 sys.stdout.flush()
 
-            #Start more workers if needed
+            # Start more workers if needed
             if runningWorkers < self.maxWorkers:
                 logging.debug("Starting {0} workers".format(
                     self.maxWorkers - runningWorkers))
 
-                #Start however many workers we need
-                #based on max workers - running workers
+                # Start however many workers we need
+                # based on max workers - running workers
                 for i in range(0, self.maxWorkers - runningWorkers):
                     if serverCounter < len(self.serverList):
 
-                        #Create a new thread with all the details
+                        # Create a new thread with all the details
                         wt = QueryWorker()
                         wt.server = self.serverList[serverCounter]
                         wt.domain = domain
                         wt.recType = recordType
                         wt.daemon = True
 
-                        #Add it to the worker tracker
+                        # Add it to the worker tracker
                         workers.append(wt)
 
-                        #Start it
+                        # Start it
                         wt.start()
 
                         serverCounter += 1
 
-            #Pause a little bit
+            # Pause a little bit
             time.sleep(0.1)
 
-        #Now colate the results
-        #Group by number of servers with the same response
+        # Now colate the results
+        # Group by number of servers with the same response
         for r in self.results:
-            #Result already in collation
+            # Result already in collation
             if r['results'] in [rs['results'] for rs in self.resultsColated]:
                 cid = [
                     i for i, rs in enumerate(self.resultsColated)
@@ -464,7 +464,7 @@ class QueryWorker(threading.Thread):
         logging.debug("Querying server {0}".format(self.server['ip']))
 
         try:
-            #Create a DNS resolver query
+            # Create a DNS resolver query
             rsvr = dns.resolver.Resolver()
             rsvr.nameservers = [self.server['ip']]
             rsvr.lifetime = 5
@@ -472,10 +472,10 @@ class QueryWorker(threading.Thread):
 
             qry = rsvr.query(self.domain, self.recType)
 
-            #Get the results, sort for consistancy
+            # Get the results, sort for consistancy
             results = sorted([r.to_text() for r in qry])
             success = True
-        #Handle all the various exceptions
+        # Handle all the various exceptions
         except dns.resolver.NXDOMAIN:
             success = False
             results = ['NXDOMAIN']
@@ -489,7 +489,7 @@ class QueryWorker(threading.Thread):
             success = False
             results = ['Server Timeout']
 
-        #Save the results
+        # Save the results
         self.result = {
             'server': self.server,
             'results': results,
