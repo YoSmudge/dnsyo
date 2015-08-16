@@ -65,6 +65,19 @@ class update(object):
     ]
 
     def __init__(self, lookup, summaryFile, outputFile):
+        """
+        Create an instance of the updater
+
+        Gets passed a pre-configured L{dnsyo.lookup} object
+
+        @param  lookup:         Instance of a L{dnsyo.lookup}
+        @param  summaryFile:    Location of file to write update summary to
+        @param  outputFile:     Target list to write results to
+
+        @type   lookup:         L{dnsyo.lookup}
+        @type   summaryFile:    str(file)
+        @type   outputFile:     str(file)
+        """
         self.lookup = lookup
         self.sourceServers = self.lookup.prepareList(noSample=True)
 
@@ -99,6 +112,13 @@ class update(object):
         self.testServers()
 
     def testServers(self):
+        """
+        Query all the servers in the source list against the test records
+
+        Runs a L{dnsyo.lookup.query} against the test records and validates the
+        results to determine which servers are still alive, then writes the
+        results to the destination file and generates a summary.
+        """
 
         serverFailures = {s['ip']: 0 for s in self.sourceServers}
 
