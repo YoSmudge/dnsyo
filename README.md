@@ -87,7 +87,7 @@ To change output mode, pass ether `--extended` or `--simple` to DNSYO.
 
 ###Resolver list
 
-DNSYO periodically updates it's internal resolver database from this repo. The first time you run it, and once every 2 weeks, it will try to download the `resolver-list.yml` file and store it to `~/.dnsyo-resovers-list.yaml` directory. If you know of any more open DNS resolvers feel free to add them to the `resolver-list-source.yml` file. There's a job that runs every month to update the working list from the source and remove any dead or misfunctioning servers.
+DNSYO periodically updates it's internal resolver database from this repo. The first time you run it, and once every 2 weeks, it will try to download the `resolver-list.yml` file and store it to `~/.dnsyo-resolvers-list.yaml` directory. If you know of any more open DNS resolvers feel free to add them to the `resolver-list-source.yml` file. There's a job that runs every month to update the working list from the source and remove any dead or misfunctioning servers.
 
 By default, DNSYO will pick 500 servers at random from it's list to query. You can change this with the `--servers` or `-q` flag. If you want DNSYO to query all the servers just pass `--servers=ALL` or `-q=ALL`.
 
