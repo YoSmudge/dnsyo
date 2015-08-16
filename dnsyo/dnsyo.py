@@ -119,7 +119,7 @@ class lookup(object):
 
         # W00T! Validation completed, save everything to instance
         self.listLocation = listLocation
-        self.listLocal = listLocal
+        self.listLocal = os.path.expanduser(listLocal)
         self.maxWorkers = maxWorkers
         self.maxServers = maxServers
         self.country = country.upper() if country else None
