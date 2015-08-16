@@ -74,8 +74,6 @@ class lookup(object):
     resultsColated = []
 
     def __init__(self,
-                 domain,
-                 recordType,
                  listLocation,
                  listLocal='~/.dnsyo-resovers-list.yaml',
                  expected=None,
@@ -90,8 +88,6 @@ class lookup(object):
         Then the rest of the script can just run without worrying about
         validation (hopefully)
 
-        @param  domain:         Domain to query
-        @param  recordType:     Type of record to query for
         @param  listLocation:   HTTP address of the X{resolver list}
         @param  listLocal:      Local file where X{resolver list} should
                                 be stored
@@ -107,29 +103,8 @@ class lookup(object):
         @type   maxWorkers:     int
         """
 
-        #Ignore domain validation, if someone wants to lookup an invalid
-        #domain let them
-
-        #Just ensure it's a string
-        assert type(domain) == str, "Domain must be a string"
-
-        #Ensure record type is valid, and in our list of allowed records
-        recordType = recordType.upper()
-        assert recordType in self.lookupRecordTypes, \
-            "Record type is not in valid list of record types {0}". \
-            format(', '.join(self.lookupRecordTypes))
-
-        #Again, ignore list URL validation, requests will just throw a funny
+        #Ignore list URL validation, requests will just throw a funny
         assert type(listLocation) == str, "List location must be a string"
-
-        #Resolve the user part of the path
-        listLocal = os.path.expanduser(listLocal)
-
-        #Check local file location exists and is writable
-        assert os.path.isdir(os.path.dirname(listLocal)),\
-            "{0} is not a directory!".format(os.path.dirname(listLocal))
-        assert os.access(os.path.dirname(listLocal), os.W_OK),\
-            "{0} is not writable!".format(os.path.dirname(listLocal))
 
         #Check maxWorkers is valid
         try:
@@ -145,8 +120,6 @@ class lookup(object):
                 assert False, "Servers to query should be a number or ALL"
 
         #W00T! Validation completed, save everything to instance
-        self.domain = domain
-        self.recordType = recordType
         self.listLocation = listLocation
         self.listLocal = listLocal
         self.maxWorkers = maxWorkers
@@ -171,7 +144,7 @@ class lookup(object):
                 r = requests.get(
                     self.listLocation,
                     headers={
-                        'User-Agent':"dnsyo/{0}".format(
+                        'User-Agent': "dnsyo/{0}".format(
                             pkg_resources.get_distribution("dnsyo").version
                         )
                     }
@@ -183,8 +156,11 @@ class lookup(object):
                     #Otherwise keep going with the old file
                     if not os.path.isfile(self.listLocal):
                         #File does not exist locally, we can't continue
-                        raise EnvironmentError("List location returned HTTP status {0} and we don't have a local copy of resolvers to fall back on. Can't continue".format(
-   r.status_code
+                        raise EnvironmentError(
+                            "List location returned HTTP status {0} and we "
+                            "don't have a local copy of resolvers to fall "
+                            "back on. Can't continue".format(
+                                r.status_code
                             )
                         )
                 else:
@@ -192,15 +168,26 @@ class lookup(object):
                     with open(self.listLocal, 'w') as lf:
                         lf.write(r.text)
 
-    def prepareList(self):
+    def prepareList(self, listFile=False, noSample=False):
         """
         Load and filter the server list for only the servers we care about
         """
 
         logging.debug("Loading resolver file")
 
+        listFileLocation = self.listLocal if not listFile else listFile
+
+        #Resolve the user part of the path
+        listLocal = os.path.expanduser(listFileLocation)
+
+        #Check local file location exists and is writable
+        assert os.path.isdir(os.path.dirname(listLocal)),\
+            "{0} is not a directory!".format(os.path.dirname(listLocal))
+        assert os.access(os.path.dirname(listLocal), os.W_OK),\
+            "{0} is not writable!".format(os.path.dirname(listLocal))
+
         #Open and yaml parse the resolver list
-        with open(self.listLocal) as ll:
+        with open(listLocal) as ll:
             raw = ll.read()
             #Use safe_load, just to be safe.
             serverList = yaml.safe_load(raw)
@@ -219,13 +206,13 @@ class lookup(object):
                                  .format(self.country))
 
         #Get selected number of servers
-        if self.maxServers == 'ALL':
+        if self.maxServers == 'ALL' or noSample:
             #Set servers to the number of servers we have
             self.maxServers = len(serverList)
         elif self.maxServers > len(serverList):
             #We were asked for more servers than exist in the list
             logging.warning(
-                "You asked me to query {0} servers, but I only have"
+                "You asked me to query {0} servers, but I only have "
                 "{1} servers in my serverlist".format(
                     self.maxServers,
                     len(serverList)
@@ -239,14 +226,33 @@ class lookup(object):
         #of servers from the list
         self.serverList = random.sample(serverList, self.maxServers)
 
-    def query(self, progress=True):
+        return self.serverList
+
+    def query(self, domain, recordType, progress=True):
         """
         Run the query
 
         Query spins out multiple thread workers to query each server
 
+        @param  domain:     Domain to query
+        @param  recordType: Type of record to query for
         @param  progress:   Write progress to stdout
         """
+
+        #Ignore domain validation, if someone wants to lookup an invalid
+        #domain let them, just ensure it's a string
+        assert type(domain) == str, "Domain must be a string"
+
+        #Ensure record type is valid, and in our list of allowed records
+        recordType = recordType.upper()
+        assert recordType in self.lookupRecordTypes, \
+            "Record type is not in valid list of record types {0}". \
+            format(', '.join(self.lookupRecordTypes))
+
+        self.domain = domain
+        self.recordType = recordType
+        self.resultsColated = []
+        self.results = []
 
         if len(self.serverList) == 0:
             logging.warning("Server list is empty. Attempting "
@@ -299,8 +305,8 @@ class lookup(object):
                         #Create a new thread with all the details
                         wt = QueryWorker()
                         wt.server = self.serverList[serverCounter]
-                        wt.domain = self.domain
-                        wt.recType = self.recordType
+                        wt.domain = domain
+                        wt.recType = recordType
                         wt.daemon = True
 
                         #Add it to the worker tracker

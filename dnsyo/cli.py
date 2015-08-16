@@ -29,6 +29,7 @@ THE SOFTWARE.
 from argparse import ArgumentParser
 import logging
 import dnsyo
+import updater
 import sys
 
 
@@ -39,11 +40,14 @@ def run():
     This is invoked from the `dnsyo` script
     """
 
-    #List all the possible options, defaults and help
+    # List all the possible options, defaults and help
     options = [
-        ['resolvlist:l', 'store',
+        ['resolverlist', 'store',
          'Location of the yaml resolvers list to download (http/https)',
          'http://dnsyo-list.codesam.co.uk/resolver-list.yml'],
+        ['resolverfile', 'store',
+         'Location of the local yaml resolvers file',
+         '~/.dnsyo-resovers-list.yaml'],
         ['verbose:v', 'store_true', 'Extended debug info'],
         ['simple:s', 'store_true',
          'Simple output mode (good for UNIX parsing)'],
@@ -53,7 +57,13 @@ def run():
         ['servers:q', 'store',
          'Maximum number of servers to query (or ALL)', 500],
         ['country:c', 'store',
-         'Query servers by two letter country code']
+         'Query servers by two letter country code'],
+        ['update', 'store_true',
+         'Check the list for working servers'],
+        ['updateSummary', 'store',
+         'Location for the summary status of the update'],
+        ['updateDestination', 'store',
+         'Destination resolver list for update']
     ]
 
     #Create an argparse
@@ -66,15 +76,21 @@ def run():
     #Load the options
     for opt in options:
         #Split them into name and short flag
-        name, flag = opt[0].split(':')
+        if ":" in opt[0]:
+            name, flag = opt[0].split(':')
+        else:
+            name, flag = opt[0], None
 
         #Set a default
         default = opt[3] if len(opt) > 3 else None
 
         #Add it to the parser object
+        arguments = ['--{0}'.format(name)]
+        if flag:
+            arguments.append('-{0}'.format(flag))
+
         p.add_argument(
-            '--{0}'.format(name),
-            '-{0}'.format(flag),
+            *arguments,
             dest=name,
             action=opt[1],
             help=opt[2],
@@ -83,12 +99,18 @@ def run():
 
     #Add the default positional arguments
     p.add_argument('domain', action="store",
-                   help="Domain to query", default=None)
+                   help="Domain to query", default=None,
+                   nargs="?")
     p.add_argument('type', action="store",
                    help='Record type (A, CNAME, MX, etc.)',
                    default="A", nargs="?")
 
     opts = p.parse_args()
+
+    # Dirty hack to get around --update not needing domain or record
+    if not opts.update and not opts.domain:
+        p.error("You must provide a domain!")
+        sys.exit(3)
 
     #Setup logging
     if len(logging.root.handlers) == 0:  # Only if there aren't any loggers
@@ -113,9 +135,8 @@ def run():
     #Prepare the lookup request
     try:
         lookup = dnsyo.lookup(
-            domain=opts.domain,
-            recordType=opts.type,
-            listLocation=opts.resolvlist,
+            listLocation=opts.resolverlist,
+            listLocal=opts.resolverfile,
             maxWorkers=opts.threads,
             maxServers=opts.servers,
             country=opts.country
@@ -125,26 +146,38 @@ def run():
         p.error(e)
         sys.exit(3)
 
-    #Update the nameserver list, if needed
-    lookup.updateList()
+    if opts.update:
+        # Do a list update
+        if not opts.updateSummary or not opts.updateDestination:
+            p.error("Must supply updateSummary and updateDestination!")
+            sys.exit(3)
 
-    #Filter the list to only the servers we want
-    lookup.prepareList()
-
-    try:
-        #Query the servers, display progress if not simple output
-        lookup.query(
-            progress=not opts.simple
-        )
-    except ValueError as e:
-        p.error(e)
-        sys.exit(3)
-
-    #Output the relevant result format
-    if opts.simple:
-        lookup.outputSimple()
+        u = updater.update(lookup, opts.updateSummary, opts.updateDestination)
     else:
-        lookup.outputStandard(opts.extended)
+        # Do a lookup
+
+        #Update the nameserver list, if needed
+        lookup.updateList()
+
+        #Filter the list to only the servers we want
+        lookup.prepareList()
+
+        try:
+            #Query the servers, display progress if not simple output
+            lookup.query(
+                domain=opts.domain,
+                recordType=opts.type,
+                progress=not opts.simple
+            )
+        except ValueError as e:
+            p.error(e)
+            sys.exit(3)
+
+        #Output the relevant result format
+        if opts.simple:
+            lookup.outputSimple()
+        else:
+            lookup.outputStandard(opts.extended)
 
 if __name__ == '__main__':
     run()
