@@ -44,7 +44,7 @@ def run():
     options = [
         ['resolverlist', 'store',
          'Location of the yaml resolvers list to download (http/https)',
-         'http://dnsyo-list.codesam.co.uk/resolver-list.yml'],
+         'https://www.codesam.co.uk/files/dnsyo/list/resolver-list.yml'],
         ['resolverfile', 'store',
          'Location of the local yaml resolvers file',
          '~/.dnsyo-resovers-list.yaml'],
