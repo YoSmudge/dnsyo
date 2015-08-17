@@ -3,7 +3,11 @@ python:
   - "2.6"
   - "2.7"
 
+sudo: false
 
 install:
   - "pip install -r requirements.txt"
   - "python setup.py install"
+
+script:
+  - true
