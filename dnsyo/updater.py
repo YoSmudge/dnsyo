@@ -120,7 +120,9 @@ class update(object):
         results to the destination file and generates a summary.
         """
 
-        serverFailures = {s['ip']: 0 for s in self.sourceServers}
+        serverFailures = {}
+        for s in self.sourceServers:
+            serverFailures[s['ip']] = 0
 
         for test in self.testRecords:
             logging.info("Running test query {0}".format(test['query']))
