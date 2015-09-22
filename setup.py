@@ -30,11 +30,16 @@ import os
 import sys
 
 
-version = '2.0.6'
-install_requires = ['PyYAML==3.10', 'dnspython==1.11.1', 'requests>= 2.7.0, < 3.0.0']
+version = '2.0.7'
+install_requires = ['PyYAML==3.10', 'requests>= 2.7.0, < 3.0.0']
 
-if sys.version[:2] <= [2, 6]:
+if sys.version_info <= (2, 6):
     install_requires.append('argparse==1.2.1')
+
+if sys.version_info >= (3, 0):
+    install_requires.append('dnspython3==1.12.0')
+else:
+    install_requires.append('dnspython==1.12.0')
 
 setup(name='dnsyo',
       version=version,

@@ -28,8 +28,8 @@ THE SOFTWARE.
 
 from argparse import ArgumentParser
 import logging
-import dnsyo
-import updater
+from .dnsyo import lookup as dnsyo
+from .updater import update
 import sys
 
 
@@ -134,7 +134,7 @@ def run():
 
     # Prepare the lookup request
     try:
-        lookup = dnsyo.lookup(
+        lookup = dnsyo(
             listLocation=opts.resolverlist,
             listLocal=opts.resolverfile,
             maxWorkers=opts.threads,
