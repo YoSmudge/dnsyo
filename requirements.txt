@@ -1,4 +1,3 @@
--e .
 PyYAML==3.10
-dnspython==1.11.1
+dnspython==1.12.0
 requests>= 2.7.0, <3.0.0

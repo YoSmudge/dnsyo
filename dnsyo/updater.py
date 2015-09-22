@@ -25,7 +25,6 @@ THE SOFTWARE.
 """
 
 import logging
-import dnsyo
 import os
 import yaml
 
