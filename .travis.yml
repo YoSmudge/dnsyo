@@ -11,8 +11,10 @@ sudo: false
 install:
   - "pip install -r requirements.txt"
   - "pip install pep8"
+  - "pip install nose==1.3.7"
   - "python setup.py install"
 
 script:
   - pep8 dnsyo
-  - dnsyo -q ALL -t 10 example.com A
+  - dnsyo -q 25 -t 10 example.com A
+  - nosetests -v
