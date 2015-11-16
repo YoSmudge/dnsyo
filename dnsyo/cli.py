@@ -47,7 +47,7 @@ def run():
          'https://www.codesam.co.uk/files/dnsyo/list/resolver-list.yml'],
         ['resolverfile', 'store',
          'Location of the local yaml resolvers file',
-         '~/.dnsyo-resovers-list.yaml'],
+         '~/.dnsyo-resolvers-list.yaml'],
         ['verbose:v', 'store_true', 'Extended debug info'],
         ['simple:s', 'store_true',
          'Simple output mode (good for UNIX parsing)'],
