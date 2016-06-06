@@ -30,18 +30,18 @@ import os
 import sys
 
 
-version = '2.0.8'
+version = '2.0.9'
 install_requires = ['PyYAML==3.10', 'requests>= 2.7.0, < 3.0.0']
 
 if sys.version_info <= (2, 6):
     install_requires.append('argparse==1.2.1')
-    install_requires.append('ndg-httpsclient==0.4.0')
-    install_requires.append('pyOpenSSL==16.0.0')
 
 if sys.version_info >= (3, 0):
     install_requires.append('dnspython3==1.12.0')
 else:
     install_requires.append('dnspython==1.12.0')
+    install_requires.append('ndg-httpsclient==0.4.0')
+    install_requires.append('pyOpenSSL==16.0.0')
 
 setup(name='dnsyo',
       version=version,
