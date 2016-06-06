@@ -11,9 +11,8 @@ python:
 
 matrix:
   allow_failures:
-    - python:
-        - "3.5-dev"
-        - "nightly"
+    - python: "3.5-dev"
+    - python: "nightly"
 
 sudo: false
 
